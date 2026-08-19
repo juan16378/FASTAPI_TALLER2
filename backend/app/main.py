@@ -1,11 +1,18 @@
 from fastapi import FastAPI
-from app.database import client, db
+
+from app.routes.productos import router as productos_router
+from app.routes.pedidos import router as pedidos_router
+
 
 app = FastAPI(
     title="API Tienda",
-    description="Backend de la tienda",
+    description="API REST para gestión de productos y pedidos",
     version="1.0.0"
 )
+
+
+app.include_router(productos_router)
+app.include_router(pedidos_router)
 
 
 @app.get("/")
@@ -13,20 +20,3 @@ def inicio():
     return {
         "mensaje": "API funcionando correctamente"
     }
-
-
-@app.get("/conexion")
-def comprobar_conexion():
-    try:
-        client.admin.command("ping")
-
-        return {
-            "mensaje": "Conexión con MongoDB exitosa",
-            "base_datos": db.name
-        }
-
-    except Exception as e:
-        return {
-            "mensaje": "Error de conexión",
-            "error": str(e)
-        }

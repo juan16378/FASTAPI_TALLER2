@@ -1,9 +1,13 @@
 from pydantic import BaseModel, Field
+from typing import List
 
 
-class Producto(BaseModel):
-    nombre: str
-    descripcion: str
-    precio: float = Field(gt=0)
-    categoria: str
-    stock: int = Field(ge=0)
+class ProductoPedido(BaseModel):
+    producto_id: str
+    cantidad: int = Field(gt=0)
+
+
+class Pedido(BaseModel):
+    cliente: str
+    productos: List[ProductoPedido]
+    total: float = Field(ge=0)

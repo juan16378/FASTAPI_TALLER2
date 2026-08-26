@@ -7,8 +7,8 @@ SECRET_KEY = 'django-insecure-cambia-esto-por-una-clave-random-luego'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "fast-taller2-deploy.vercel.app",
-    "fastapi-taller2-kqhc.onrender.com",
+    "fastapi-taller-2-nine.vercel.app",
+    ".vercel.app",
     "localhost",
     "127.0.0.1",
 ]

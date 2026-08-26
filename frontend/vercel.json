@@ -1,11 +1,10 @@
 {
     "builds": [
         {
-            "src": "wsgi.py",
+            "src": "frontend/wsgi.py",
             "use": "@vercel/python"
         }
     ],
-
     "routes": [
         {
             "src": "/(.*)",

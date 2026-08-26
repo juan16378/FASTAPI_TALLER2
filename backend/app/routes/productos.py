@@ -18,7 +18,8 @@ def producto_schema(producto):
         "descripcion": producto["descripcion"],
         "precio": producto["precio"],
         "categoria": producto["categoria"],
-        "stock": producto["stock"]
+        "stock": producto["stock"],
+        "imagen": producto.get("imagen", "")
     }
 
 

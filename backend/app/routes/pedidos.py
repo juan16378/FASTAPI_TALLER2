@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.database import pedidos_collection
+
 from app.models.pedido import Pedido
 
 
@@ -18,8 +19,13 @@ async def crear_pedido(pedido: Pedido):
     )
 
     return {
-        "mensaje": "Pedido registrado correctamente",
-        "id": str(resultado.inserted_id)
+
+        "mensaje":
+            "Pedido registrado correctamente",
+
+        "id":
+            str(resultado.inserted_id)
+
     }
 
 
@@ -30,12 +36,42 @@ async def obtener_pedidos():
 
     resultado = []
 
+
     async for pedido in pedidos:
+
         resultado.append({
-            "id": str(pedido["_id"]),
-            "cliente": pedido["cliente"],
-            "productos": pedido["productos"],
-            "total": pedido["total"]
+
+            "id":
+                str(pedido["_id"]),
+
+            "nombre_completo":
+                pedido["nombre_completo"],
+
+            "cedula":
+                pedido["cedula"],
+
+            "celular":
+                pedido["celular"],
+
+            "correo":
+                pedido["correo"],
+
+            "direccion":
+                pedido["direccion"],
+
+            "ciudad":
+                pedido["ciudad"],
+
+            "notas":
+                pedido.get("notas", ""),
+
+            "productos":
+                pedido["productos"],
+
+            "total":
+                pedido["total"]
+
         })
+
 
     return resultado

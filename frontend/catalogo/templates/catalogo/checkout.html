@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Finalizar compra</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Geneva,
+                Verdana,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #1e293b;
+
+            min-height: 100vh;
+
+            padding: 35px 20px;
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+
+        /* =================================
+           HEADER
+        ================================= */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .header h1 {
+
+            font-size: 2.4rem;
+
+            color: #1e1b4b;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+
+            color: #64748b;
+        }
+
+
+        /* =================================
+           LAYOUT
+        ================================= */
+
+        .checkout {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            border:
+                1px solid #e2e8f0;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .08);
+        }
+
+
+        .card h2 {
+
+            font-size: 1.25rem;
+
+            margin-bottom: 22px;
+
+            color: #1e293b;
+        }
+
+
+        /* =================================
+           FORMULARIO
+        ================================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 18px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        label {
+
+            font-size: .9rem;
+
+            font-weight: 700;
+
+            color: #475569;
+        }
+
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: .95rem;
+
+            color: #1e293b;
+
+            transition:
+                border .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        input:focus,
+        textarea:focus {
+
+            border-color:
+                #6366f1;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, .12);
+        }
+
+
+        textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        .required {
+
+            color: #ef4444;
+        }
+
+
+        /* =================================
+           RESUMEN
+        ================================= */
+
+        .summary {
+
+            position: sticky;
+
+            top: 20px;
+        }
+
+
+        .product {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid #eef2f7;
+        }
+
+
+        .product-image {
+
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+
+            background: #eef2ff;
+        }
+
+
+        .product-info {
+
+            flex: 1;
+        }
+
+
+        .product-name {
+
+            font-weight: 700;
+
+            font-size: .9rem;
+
+            margin-bottom: 4px;
+        }
+
+
+        .product-quantity {
+
+            color: #64748b;
+
+            font-size: .8rem;
+        }
+
+
+        .product-price {
+
+            font-weight: 700;
+
+            color: #4f46e5;
+        }
+
+
+        .total-container {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            padding-top: 20px;
+
+            margin-top: 10px;
+
+            border-top:
+                2px solid #e2e8f0;
+        }
+
+
+        .total-label {
+
+            font-size: 1rem;
+
+            font-weight: 700;
+
+            color: #475569;
+        }
+
+
+        .total {
+
+            font-size: 1.7rem;
+
+            font-weight: 800;
+
+            color: #16a34a;
+        }
+
+
+        /* =================================
+           BOTÓN
+        ================================= */
+
+        .submit-button {
+
+            width: 100%;
+
+            border: none;
+
+            margin-top: 22px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 1rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .submit-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(79, 70, 229, .25);
+        }
+
+
+        .back {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            text-decoration: none;
+
+            color: #64748b;
+
+            font-size: .9rem;
+        }
+
+
+        .back:hover {
+
+            color: #4f46e5;
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .checkout {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .summary {
+
+                position: static;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding:
+                    20px 12px;
+            }
+
+
+            .card {
+
+                padding: 20px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+
+                grid-column:
+                    auto;
+            }
+
+
+            .header h1 {
+
+                font-size: 2rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            🛍️ Finalizar compra
+        </h1>
+
+        <p>
+            Completa tus datos para realizar
+            tu pedido.
+        </p>
+
+    </div>
+
+
+    <form
+        method="POST"
+        action="{% url 'crear_pedido' %}"
+        id="checkoutForm"
+    >
+
+        {% csrf_token %}
+
+
+        <div class="checkout">
+
+
+            <!-- =============================
+                 DATOS DEL CLIENTE
+            ============================== -->
+
+            <div class="card">
+
+                <h2>
+                    👤 Datos del cliente
+                </h2>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Nombre completo
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nombre_completo"
+                            placeholder="Ej: Juan Pérez"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Cédula
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="cedula"
+                            placeholder="Ej: 1234567890"
+                            inputmode="numeric"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Número de celular
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="celular"
+                            placeholder="Ej: 3001234567"
+                            inputmode="tel"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Correo electrónico
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            name="correo"
+                            placeholder="Ej: juan@gmail.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Dirección de entrega
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="direccion"
+                            placeholder="Ej: Calle 10 #20-30"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Ciudad
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ciudad"
+                            placeholder="Ej: Medellín"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Notas adicionales
+                        </label>
+
+                        <textarea
+                            name="notas"
+                            placeholder="Ej: Entregar después de las 5 PM, apartamento 302..."
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================
+                 RESUMEN DEL PEDIDO
+            ============================== -->
+
+            <div class="card summary">
+
+                <h2>
+                    🛒 Resumen del pedido
+                </h2>
+
+
+                <div id="productosResumen"></div>
+
+
+                <div class="total-container">
+
+                    <span class="total-label">
+
+                        Total
+
+                    </span>
+
+                    <span
+                        class="total"
+                        id="totalCompra"
+                    >
+
+                        $0
+
+                    </span>
+
+                </div>
+
+
+                <!--
+                    El JSON del carrito
+                    será enviado a Django.
+                -->
+
+                <input
+                    type="hidden"
+                    name="productos"
+                    id="productosInput"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="total"
+                    id="totalInput"
+                >
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+
+                    ✅ Confirmar pedido
+
+                </button>
+
+
+                <a
+                    href="/"
+                    class="back"
+                >
+
+                    ← Volver al catálogo
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<script>
+
+    /*
+     * ========================================
+     * OBTENER CARRITO
+     * ========================================
+     */
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+
+    const resumen =
+        document.getElementById(
+            "productosResumen"
+        );
+
+
+    const totalCompra =
+        document.getElementById(
+            "totalCompra"
+        );
+
+
+    const productosInput =
+        document.getElementById(
+            "productosInput"
+        );
+
+
+    const totalInput =
+        document.getElementById(
+            "totalInput"
+        );
+
+
+    /*
+     * ========================================
+     * SI EL CARRITO ESTÁ VACÍO
+     * ========================================
+     */
+
+    if (carrito.length === 0) {
+
+        resumen.innerHTML = `
+
+            <div
+                style="
+                    text-align:center;
+                    padding:20px;
+                    color:#64748b;
+                "
+            >
+
+                🛒
+
+                <br><br>
+
+                Tu carrito está vacío.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+     * ========================================
+     * MOSTRAR PRODUCTOS
+     * ========================================
+     */
+
+    let total = 0;
+
+
+    carrito.forEach(producto => {
+
+
+        const subtotal =
+            Number(producto.precio) *
+            Number(producto.cantidad);
+
+
+        total += subtotal;
+
+
+        const imagen =
+            producto.imagen
+            || "";
+
+
+        resumen.innerHTML += `
+
+            <div class="product">
+
+                ${
+                    imagen
+                    ?
+                    `
+                    <img
+                        src="${imagen}"
+                        class="product-image"
+                        alt="${producto.nombre}"
+                    >
+                    `
+                    :
+                    `
+                    <div
+                        class="product-image"
+                        style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:28px;
+                        "
+                    >
+                        📦
+                    </div>
+                    `
+                }
+
+
+                <div class="product-info">
+
+                    <div class="product-name">
+
+                        ${producto.nombre}
+
+                    </div>
+
+                    <div class="product-quantity">
+
+                        Cantidad:
+                        ${producto.cantidad}
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-price">
+
+                    $${subtotal.toLocaleString(
+                        "es-CO"
+                    )}
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    /*
+     * ========================================
+     * MOSTRAR TOTAL
+     * ========================================
+     */
+
+    totalCompra.textContent =
+        "$" +
+        total.toLocaleString("es-CO");
+
+
+    totalInput.value = total;
+
+
+    /*
+     * ========================================
+     * PREPARAR PRODUCTOS PARA FASTAPI
+     * ========================================
+     */
+
+    const productosPedido =
+        carrito.map(producto => ({
+
+            producto_id:
+                producto.id,
+
+            cantidad:
+                Number(producto.cantidad)
+
+        }));
+
+
+    productosInput.value =
+        JSON.stringify(
+            productosPedido
+        );
+
+
+    /*
+     * ========================================
+     * VALIDACIÓN
+     * ========================================
+     */
+
+    document
+        .getElementById("checkoutForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+
+                if (carrito.length === 0) {
+
+                    event.preventDefault();
+
+
+                    alert(
+                        "🛒 Tu carrito está vacío."
+                    );
+
+
+                    return;
+                }
+
+
+                if (total <= 0) {
+
+                    event.preventDefault();
+
+
+                    alert(
+                        "El total del pedido no es válido."
+                    );
+
+
+                    return;
+                }
+
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

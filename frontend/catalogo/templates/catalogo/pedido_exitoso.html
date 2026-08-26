@@ -24,7 +24,9 @@
 
         body {
 
-            font-family: Arial, sans-serif;
+            font-family:
+                Arial,
+                sans-serif;
 
             background:
                 linear-gradient(
@@ -86,6 +88,8 @@
             color: #64748b;
 
             margin-bottom: 12px;
+
+            line-height: 1.6;
         }
 
 
@@ -93,13 +97,29 @@
 
             background: #f1f5f9;
 
-            padding: 15px;
+            padding: 18px;
 
-            border-radius: 10px;
+            border-radius: 12px;
 
             margin: 25px 0;
 
             font-weight: bold;
+
+            color: #334155;
+        }
+
+
+        .id {
+
+            display: block;
+
+            margin-top: 8px;
+
+            color: #4f46e5;
+
+            font-size: 1.1rem;
+
+            word-break: break-all;
         }
 
 
@@ -135,6 +155,16 @@
             border-radius: 10px;
 
             font-weight: bold;
+
+            transition: .2s;
+        }
+
+
+        a:hover {
+
+            transform:
+                translateY(-2px);
+
         }
 
     </style>
@@ -159,8 +189,16 @@
 
 
     <p>
+        Hola
+        <strong>
+            {{ pedido.nombre_completo }}
+        </strong>
+    </p>
+
+
+    <p>
         Tu pedido fue registrado
-        correctamente.
+        correctamente en nuestra tienda.
     </p>
 
 
@@ -170,7 +208,11 @@
 
             Número de pedido:
 
-            {{ pedido.id }}
+            <span class="id">
+
+                {{ pedido.id }}
+
+            </span>
 
         </div>
 
@@ -191,7 +233,9 @@
 
 
     <a href="/">
+
         🛍️ Volver al catálogo
+
     </a>
 
 
@@ -200,7 +244,14 @@
 
 <script>
 
-    localStorage.removeItem("carrito");
+    /*
+     * Limpiar carrito después
+     * de una compra exitosa.
+     */
+
+    localStorage.removeItem(
+        "carrito"
+    );
 
 </script>
 

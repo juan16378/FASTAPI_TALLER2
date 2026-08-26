@@ -13,29 +13,39 @@ def productos(request):
     error = None
 
     try:
+        url = f"{API_URL}/productos/"
+
+        print("================================")
+        print("URL API:", url)
+        print("================================")
 
         respuesta = requests.get(
-            f"{API_URL}/productos/",
-            timeout=5
+            url,
+            timeout=20
         )
+
+        print("STATUS:", respuesta.status_code)
+        print("RESPUESTA:", respuesta.text)
 
         if respuesta.status_code == 200:
-
             productos_data = respuesta.json()
-
         else:
-
             error = (
-                "No fue posible obtener "
-                "los productos desde la API."
+                f"La API respondió con código "
+                f"{respuesta.status_code}: {respuesta.text}"
             )
 
-    except requests.exceptions.RequestException:
+    except requests.exceptions.Timeout:
+        error = "La API de Render tardó demasiado en responder."
 
-        error = (
-            "No se pudo conectar con la API. "
-            "Verifica que FastAPI esté ejecutándose."
-        )
+    except requests.exceptions.ConnectionError as e:
+        error = f"Error de conexión con Render: {e}"
+
+    except requests.exceptions.RequestException as e:
+        error = f"Error HTTP al conectar con la API: {e}"
+
+    except Exception as e:
+        error = f"Error inesperado: {e}"
 
     return render(
         request,
